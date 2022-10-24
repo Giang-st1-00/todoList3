@@ -1,8 +1,10 @@
-import { useDispatch, useSelector } from 'react-redux';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import styleTodolist from './index.module.css';
 import {isCheckBoxTodos , elementEdit,openEdit, addCheckEdit, isCheckTodos , removeTodo,addTodo,selectTodos ,setTodoInput,inputTodos, closeElementEdit, addCheckBoxTodo, changeCheckBox, removeCheckBox, isCheckAlls, checkAllFunction } from './todolistSlice';
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import CheckBox from '../../components/common/CheckAllTodo';
+import CheckAllTodo from '../../components/common/CheckAllTodo';
+import Input from '../../components/common/Input';
 
 export default function Todolist() {
 
@@ -42,30 +44,12 @@ export default function Todolist() {
                     <span
                         className={styleTodolist.span_all
                     }>
-                        <input 
-                            type='checkbox' 
-                            onClick={e => 
-                                dispatchTodo(checkAllFunction())
-                            }
-                            style={{
-                                width : '20px',
-                                height : '20px',
-                                margin : '0 20px 0 0',
-                            }}
-                            checked={isCheckAll}
-
-                        />
+                        <CheckAllTodo isCheckAlls={isCheckAll}/>
                         All
                     </span>
                     
-                    <input 
-                        value={inputTodo}
-                        onChange={e => {
-                            dispatchTodo(setTodoInput(e.target.value))
-                        }}
-                        // autoFocus={true}
-
-                    />
+                    <Input value={inputTodo}/>
+                    
                     <button 
                         className={styleTodolist.button}
                         onClick={() => {

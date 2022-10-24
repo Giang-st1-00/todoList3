@@ -36,7 +36,7 @@
     padding : 0;
     box-sizing: border-box;
     list-style: none;
-    width: 30%;
+    width: 100%;
   }
 
   .todo_element_input {
