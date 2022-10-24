@@ -5,9 +5,9 @@ import { TodosState } from "../../model/Todo";
 const initialState : TodosState = {
     value : [],
     todoInput : '',
-    checkTodo : [],
-    checkBoxTodo : [],
-    checkAll : false,
+    isCheckTodo : [],
+    isCheckBoxTodo : [],
+    isCheckAll : false,
 }
 
 export const todolistSlice = createSlice({
@@ -28,11 +28,11 @@ export const todolistSlice = createSlice({
             
             return {
                 ...state,
-                checkBoxTodo : [...state.checkBoxTodo,false]
+                isCheckBoxTodo : [...state.isCheckBoxTodo,false]
             }
         },
         changeCheckBox : (state,action : PayloadAction<number>) => {
-            let tmp : Array<boolean> = [...state.checkBoxTodo];
+            let tmp : Array<boolean> = [...state.isCheckBoxTodo];
             
             tmp.map((val,index) => {
                 if (index == action.payload) {
@@ -42,7 +42,7 @@ export const todolistSlice = createSlice({
 
             return {
                 ...state,
-                checkBoxTodo : tmp,
+                isCheckBoxTodo : tmp,
             }
         },
         removeCheckBox : (state) => {
@@ -51,7 +51,7 @@ export const todolistSlice = createSlice({
             const indexOfCheck_false : any = [];
             const newValue : any = [];
             
-            state.checkBoxTodo.map((val,index) => {
+            state.isCheckBoxTodo.map((val,index) => {
                 if (val==false) {
                     indexOfCheck_false.push(index);
                 }
@@ -66,26 +66,26 @@ export const todolistSlice = createSlice({
             return {
                 ...state,
                 value : newValue,
-                checkBoxTodo : state.checkBoxTodo.filter((val,index) => val==false)
+                isCheckBoxTodo : state.isCheckBoxTodo.filter((val,index) => val==false)
             }
         },
         checkAllFunction : (state) => {
-            let tmp : Array<boolean> = [...state.checkBoxTodo];
+            let tmp : Array<boolean> = [...state.isCheckBoxTodo];
             
-            state.checkAll==false 
+            state.isCheckAll==false 
             ?
                 tmp.map((val, index) => {
-                    tmp[index] = !state.checkAll; 
+                    tmp[index] = !state.isCheckAll; 
                 })
             :
                 tmp.map((val, index) => {
-                    tmp[index] = !state.checkAll; 
+                    tmp[index] = !state.isCheckAll; 
                 })
             
             return {
                 ...state,
-                checkAll : !state.checkAll,
-                checkBoxTodo : tmp,
+                isCheckAll : !state.isCheckAll,
+                isCheckBoxTodo : tmp,
             }
         },
 
@@ -100,7 +100,7 @@ export const todolistSlice = createSlice({
             return {
                 ...state,
                 value : state.value.filter((val,index) => index!=action.payload),
-                checkTodo : state.checkTodo.filter((val,index) => index!=action.payload)
+                isCheckTodo : state.isCheckTodo.filter((val,index) => index!=action.payload)
             }
         },
 
@@ -108,12 +108,12 @@ export const todolistSlice = createSlice({
         addCheckEdit : (state) => {
             return {
                 ...state,
-                checkTodo : [...state.checkTodo,true],
+                isCheckTodo : [...state.isCheckTodo,true],
             }
         },
         openEdit : (state,action: PayloadAction<number>) => {
             
-            let tmp : Array<boolean> = [...state.checkTodo];
+            let tmp : Array<boolean> = [...state.isCheckTodo];
             
             tmp.map((val,index) => {
                 if (index == action.payload) {
@@ -123,7 +123,7 @@ export const todolistSlice = createSlice({
 
             return {
                 ...state,
-                checkTodo : tmp,
+                isCheckTodo : tmp,
             }
         },
         elementEdit : (state,action: PayloadAction<any>) => {
@@ -141,7 +141,7 @@ export const todolistSlice = createSlice({
             }
         },
         closeElementEdit : (state,action: PayloadAction<number>) => {
-            let tmp : Array<boolean> = [...state.checkTodo];
+            let tmp : Array<boolean> = [...state.isCheckTodo];
             
             tmp.map((val,index) => {
                 if (index == action.payload) {
@@ -151,7 +151,7 @@ export const todolistSlice = createSlice({
 
             return {
                 ...state,
-                checkTodo : tmp,
+                isCheckTodo : tmp,
             }
         }
     }
@@ -161,9 +161,9 @@ export const {checkAllFunction,removeCheckBox,changeCheckBox,addCheckBoxTodo,clo
 
 export const selectTodos = (state : RootState) => state.todolist.value;
 export const inputTodos = (state : RootState) => state.todolist.todoInput;
-export const checkTodos = (state : RootState) => state.todolist.checkTodo;
-export const checkBoxTodos = (state : RootState) => state.todolist.checkBoxTodo;
-export const checkAlls = (state : RootState) => state.todolist.checkAll;
+export const isCheckTodos = (state : RootState) => state.todolist.isCheckTodo;
+export const isCheckBoxTodos = (state : RootState) => state.todolist.isCheckBoxTodo;
+export const isCheckAlls = (state : RootState) => state.todolist.isCheckAll;
 
 export default todolistSlice.reducer;
 

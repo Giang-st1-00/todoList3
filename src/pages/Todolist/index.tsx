@@ -1,20 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import styleTodolist from './index.module.css';
-import {checkBoxTodos, elementEdit,openEdit, addCheckEdit,checkTodos, removeTodo,addTodo,selectTodos ,setTodoInput,inputTodos, closeElementEdit, addCheckBoxTodo, changeCheckBox, removeCheckBox, checkAlls, checkAllFunction } from './todolistSlice';
+import {isCheckBoxTodos , elementEdit,openEdit, addCheckEdit, isCheckTodos , removeTodo,addTodo,selectTodos ,setTodoInput,inputTodos, closeElementEdit, addCheckBoxTodo, changeCheckBox, removeCheckBox, isCheckAlls, checkAllFunction } from './todolistSlice';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 export default function Todolist() {
 
     const todo = useAppSelector(selectTodos) || [];
     const inputTodo = useAppSelector(inputTodos);   
-    const checkTodo = useAppSelector(checkTodos);
-    const checkBoxTodo = useAppSelector(checkBoxTodos);
-    const checkAll = useAppSelector(checkAlls);
+    const isCheckTodo = useAppSelector(isCheckTodos);
+    const isCheckBoxTodo = useAppSelector(isCheckBoxTodos);
+    const isCheckAll = useAppSelector(isCheckAlls);
 
-    console.log(checkTodo);
-    
-    
     const dispatchTodo = useAppDispatch();
 
     function handleInputElement(index : number) {
@@ -55,7 +52,7 @@ export default function Todolist() {
                                 height : '20px',
                                 margin : '0 20px 0 0',
                             }}
-                            checked={checkAll}
+                            checked={isCheckAll}
 
                         />
                         All
@@ -90,7 +87,7 @@ export default function Todolist() {
                                 <input 
                                     className={styleTodolist.checkbox_todo} 
                                     type='checkbox' 
-                                    checked={checkBoxTodo[index]}
+                                    checked={isCheckBoxTodo[index]}
                                     onClick={e => {
                                         dispatchTodo(changeCheckBox(index))
                                     }}
@@ -98,9 +95,10 @@ export default function Todolist() {
                                 <input 
                                     className={`${styleTodolist.todo_element_input} ${styleTodolist.todo_element_input}_${index}`} 
                                     value={value} 
+                                    readOnly={isCheckTodo[index]}
                                     onDoubleClick={e => {
                                         e.preventDefault();
-                                        // handleInputElement(index)
+                                        handleInputElement(index)
                                         dispatchTodo(openEdit(index))
                                         const todo_element_input1 = document.querySelector(`.${styleTodolist.todo_element_input}_${index}`)
                                         if (todo_element_input1 != null) {
@@ -110,7 +108,9 @@ export default function Todolist() {
                                         }
                                     }}
                                     onBlur={e => {
-                                            if (checkTodo[index] == false) {
+                                            if (isCheckTodo[index] == false) {
+                                                console.log(12333);
+                                                
                                             dispatchTodo(closeElementEdit(index))
                                             const todo_element_input1 = document.querySelector(`.${styleTodolist.todo_element_input}_${index}`)
                                         
@@ -125,7 +125,7 @@ export default function Todolist() {
                                     onChange={e => 
                                         dispatchTodo(elementEdit([index,e.target.value]))
                                     }
-                                    readOnly={checkTodo[index]}
+                                    
                                     // autoFocus
                                 />
                                 
