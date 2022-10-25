@@ -7,14 +7,28 @@ export interface TodosState {
     isCheckAll : boolean;
 }
 
-export interface CheckAllProps {
-    className ?: string,
-    isCheckAlls ?: boolean,
-}
 
-export interface InputProps {
-    value ?: string | number,
 
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

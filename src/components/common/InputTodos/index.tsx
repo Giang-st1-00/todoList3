@@ -1,9 +1,12 @@
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import {setTodoInput } from '../../../pages/Todolist/todolistSlice';
-import { InputProps } from '../../../model/Todo';
 
+type props = {
+    value ?: string | number,
+    handleChange(payload: string | number) : any,
+}
 
-export default function Input({value} : InputProps) {
+export default function InputTodo({ value , handleChange } : props) {
 
     const dispatchTodo = useAppDispatch();
 
@@ -11,9 +14,8 @@ export default function Input({value} : InputProps) {
         <input 
             value={value}
             onChange={e => {
-                dispatchTodo(setTodoInput(e.target.value))
+                dispatchTodo(handleChange(e.target.value))
             }}
-            // autoFocus={true}
         />
     )
 }
