@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { useTodoDispatch, useTodoSelector } from '../../../app/hooks';
 import {setTodoInput } from '../../../pages/Todolist/todolistSlice';
 
 type props = {
@@ -8,7 +8,7 @@ type props = {
 
 export default function InputTodo({ value , handleChange } : props) {
 
-    const dispatchTodo = useAppDispatch();
+    const dispatchTodo = useTodoDispatch();
 
     return (
         <input 

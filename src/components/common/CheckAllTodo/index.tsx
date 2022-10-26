@@ -1,23 +1,25 @@
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { useTodoDispatch, useTodoSelector } from "../../../app/hooks";
 import { checkAllFunction } from "../../../pages/Todolist/todolistSlice";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 type props = {
   className?: string;
   isCheckAlls?: boolean;
+  useDispatch() : any;
 };
 
 export default function CheckAllTodo({
   className = "",
   isCheckAlls = false,
+  useDispatch
 }: props) {
-  const dispatchTodo = useAppDispatch();
+  const dispatch = useDispatch();
 
   return (
     <label>
       <input
         type="checkbox"
-        onClick={(e) => dispatchTodo(checkAllFunction())}
+        onClick={(e) => dispatch(checkAllFunction())}
         style={{
           width: "20px",
           height: "20px",

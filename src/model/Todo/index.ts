@@ -1,5 +1,6 @@
 
 export interface TodosState {
+    
     value : Array<number | string>;
     todoInput : string | number;
     isCheckTodo : Array<boolean>;

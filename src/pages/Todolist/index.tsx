@@ -1,9 +1,9 @@
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useTodoDispatch, useTodoSelector } from "../../app/hooks";
 import styleTodolist from "./index.module.css";
 import {
-  isCheckBoxTodos,
   elementEdit,
-  openEdit,
+  closeElementEdit,
+  isCheckBoxTodos,
   addCheckEdit,
   isCheckTodos,
   removeTodo,
@@ -11,38 +11,26 @@ import {
   selectTodos,
   setTodoInput,
   inputTodos,
-  closeElementEdit,
   addCheckBoxTodo,
   changeCheckBox,
   removeCheckBox,
   isCheckAlls,
-  checkAllFunction,
+  openEdit,
 } from "./todolistSlice";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import CheckBox from "../../components/common/CheckAllTodo";
 import CheckAllTodo from "../../components/common/CheckAllTodo";
-import Input from "../../components/common/InputTodos";
-import InputTodos from "../../components/common/InputTodos";
 import { CheckBoxTodo } from "../../components/common/CheckBoxTodo";
+import InputEnter from "../../components/common/InputEnter";
+import InputTodo from "../../components/common/InputTodo";
 
 export default function Todolist() {
-  const todo = useAppSelector(selectTodos) || [];
-  const inputTodo = useAppSelector(inputTodos);
-  const isCheckTodo = useAppSelector(isCheckTodos);
-  const isCheckBoxTodo = useAppSelector(isCheckBoxTodos);
-  const isCheckAll = useAppSelector(isCheckAlls);
+  const todo = useTodoSelector(selectTodos) || [];
+  const inputTodo = useTodoSelector(inputTodos);
+  const isCheckTodo = useTodoSelector(isCheckTodos);
+  const isCheckBoxTodo = useTodoSelector(isCheckBoxTodos);
+  const isCheckAll = useTodoSelector(isCheckAlls);
 
-  const dispatchTodo = useAppDispatch();
-
-  function handleInputElement(index: number) {
-    const todo_element_input = document.querySelector(
-      `.${styleTodolist.todo_element_input}_${index}`
-    );
-
-    if (todo_element_input != null) {
-      todo_element_input.setAttribute("style", "color:red; border: none;");
-    }
-  }
+  const dispatchTodo = useTodoDispatch();
 
   function SupportTodo() {
     return (
@@ -62,76 +50,48 @@ export default function Todolist() {
     <div>
       <div className={styleTodolist.title}>TODOS</div>
 
-      <div className={styleTodolist.row}>
-        <span className={styleTodolist.span_all}>
-          <CheckAllTodo isCheckAlls={isCheckAll} />
-          All
-        </span>
+        <div className={styleTodolist.row}>
+          <span className={styleTodolist.span_all}>
+            <CheckAllTodo isCheckAlls={isCheckAll} useDispatch={useTodoDispatch}/>
+            All
+          </span>
 
-        <InputTodos value={inputTodo} handleChange={setTodoInput} />
+          <InputEnter value={inputTodo} handleChange={setTodoInput} />
 
-        <button
-          className={styleTodolist.button}
-          onClick={() => {
-            dispatchTodo(addCheckEdit());
-            dispatchTodo(addCheckBoxTodo());
-            dispatchTodo(addTodo(inputTodo));
-            dispatchTodo(setTodoInput(""));
-          }}
-        >
-          ADD
-        </button>
-      </div>
+          <button
+            className={styleTodolist.button}
+            onClick={() => {
+              dispatchTodo(addCheckEdit());
+              dispatchTodo(addCheckBoxTodo());
+              dispatchTodo(addTodo(inputTodo));
+              dispatchTodo(setTodoInput(""));
+            }}
+          >
+            ADD
+          </button>
+        </div>
 
       <ul className={styleTodolist.ul}>
         {todo.map((value: any, index: number) => {
           return (
             <div className={styleTodolist.todo_element}>
-                
               <CheckBoxTodo
                 className={styleTodolist.checkbox_todo}
+                index={index}
                 state={isCheckBoxTodo[index]}
                 handleChangeCheckBox={changeCheckBox}
-                indexChange={index}
+                useDispatch={useTodoDispatch}
               />
 
-              <input
-                className={`${styleTodolist.todo_element_input} ${styleTodolist.todo_element_input}_${index}`}
+              <InputTodo 
+                index={index}
+                className={`${styleTodolist.todo_element_input}`+` `+`${styleTodolist.todo_element_input}_${index}`} 
                 value={value}
-                readOnly={isCheckTodo[index]}
-                onDoubleClick={(e) => {
-                  e.preventDefault();
-                  handleInputElement(index);
-                  dispatchTodo(openEdit(index));
-                  const todo_element_input1 = document.querySelector(
-                    `.${styleTodolist.todo_element_input}_${index}`
-                  );
-                  if (todo_element_input1 != null) {
-                    todo_element_input1.setAttribute("style", "outline: auto;");
-                  }
-                }}
-                onBlur={(e) => {
-                  if (isCheckTodo[index] == false) {
-                    console.log(12333);
-
-                    dispatchTodo(closeElementEdit(index));
-                    const todo_element_input1 = document.querySelector(
-                      `.${styleTodolist.todo_element_input}_${index}`
-                    );
-
-                    if (todo_element_input1 != null) {
-                      todo_element_input1.setAttribute(
-                        "style",
-                        "outline: none;"
-                      );
-                    }
-                  }
-                }}
-                onChange={(e) =>
-                  dispatchTodo(elementEdit([index, e.target.value]))
-                }
-
-                // autoFocus
+                isCheckTodo={isCheckTodo[index]}
+                useDispatch={useTodoDispatch}
+                handleDoubleClick={openEdit}
+                handleOnBlur={closeElementEdit}
+                elementEdit={elementEdit}
               />
 
               <div

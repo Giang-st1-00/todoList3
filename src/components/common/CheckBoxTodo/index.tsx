@@ -1,32 +1,29 @@
-import styleTodolist from "../../../pages/Todolist/index.module.css";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { changeCheckBox } from "../../../pages/Todolist/todolistSlice";
 
 type props = {
+  index: number;
   className: string;
   state: boolean;
+  useDispatch() : any,
   handleChangeCheckBox(state: number): any;
-  indexChange: number;
 }
 
 export function CheckBoxTodo({
+  index,
   className = "",
   state,
+  useDispatch,
   handleChangeCheckBox,
-  indexChange,
 }: props) {
-  const dispatchTodo = useAppDispatch();
+  const dispatch = useDispatch();
 
   return (
-    <label>
       <input
         className={className}
         type="checkbox"
         checked={state}
         onClick={(e) => {
-          dispatchTodo(handleChangeCheckBox(indexChange));
+          dispatch(handleChangeCheckBox(index));
         }}
       />
-    </label>
   );
 }
