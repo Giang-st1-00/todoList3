@@ -1,12 +1,12 @@
-import { useTodoDispatch, useTodoSelector } from '../../../app/hooks';
+import { useTodoDispatch, useTodoSelector } from '../../../app/appTodo/hooks';
 import {setTodoInput } from '../../../pages/Todolist/todolistSlice';
 
-type props = {
+type InputTodoProps = {
     value ?: string | number,
     handleChange(payload: string | number) : any,
 }
 
-export default function InputTodo({ value , handleChange } : props) {
+export default function InputTodo({ value , handleChange } : InputTodoProps) {
 
     const dispatchTodo = useTodoDispatch();
 

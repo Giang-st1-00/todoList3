@@ -1,10 +1,10 @@
 
-type props = {
-  index: number;
+type CheckBoxTodoProps = {
+  index ?: number;
   className: string;
   state: boolean;
   useDispatch() : any,
-  handleChangeCheckBox(state: number): any;
+  handleChangeCheckBox(state?: number): any;
 }
 
 export function CheckBoxTodo({
@@ -13,7 +13,7 @@ export function CheckBoxTodo({
   state,
   useDispatch,
   handleChangeCheckBox,
-}: props) {
+}: CheckBoxTodoProps) {
   const dispatch = useDispatch();
 
   return (

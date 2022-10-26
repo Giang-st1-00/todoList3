@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../../app/store";
+import { RootState } from "../../app/appTodo/store";
 import { TodosState } from "../../model/Todo";
 
 const initialState : TodosState = {
@@ -18,7 +18,6 @@ export const todolistSlice = createSlice({
         setTodoInput : (state, action: PayloadAction<string | number>) => {
             return {
                 ...state,
-                //chỉ cần ghi todoInput , k cần state.todoInput vì typescript 
                 todoInput : action.payload,
             }
         },

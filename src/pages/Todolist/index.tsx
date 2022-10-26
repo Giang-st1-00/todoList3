@@ -1,6 +1,7 @@
-import { useTodoDispatch, useTodoSelector } from "../../app/hooks";
+import { useTodoDispatch, useTodoSelector } from "../../app/appTodo/hooks";
 import styleTodolist from "./index.module.css";
 import {
+  checkAllFunction,
   elementEdit,
   closeElementEdit,
   isCheckBoxTodos,
@@ -18,26 +19,26 @@ import {
   openEdit,
 } from "./todolistSlice";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import CheckAllTodo from "../../components/common/CheckAllTodo";
 import { CheckBoxTodo } from "../../components/common/CheckBoxTodo";
 import InputEnter from "../../components/common/InputEnter";
 import InputTodo from "../../components/common/InputTodo";
 
 export default function Todolist() {
+
   const todo = useTodoSelector(selectTodos) || [];
   const inputTodo = useTodoSelector(inputTodos);
   const isCheckTodo = useTodoSelector(isCheckTodos);
   const isCheckBoxTodo = useTodoSelector(isCheckBoxTodos);
   const isCheckAll = useTodoSelector(isCheckAlls);
 
-  const dispatchTodo = useTodoDispatch();
+  const dispatch = useTodoDispatch();
 
   function SupportTodo() {
     return (
       <div className={styleTodolist.supportTodo}>
         <button
           onClick={(e) => {
-            dispatchTodo(removeCheckBox());
+            dispatch(removeCheckBox());
           }}
         >
           Clear completed
@@ -51,20 +52,25 @@ export default function Todolist() {
       <div className={styleTodolist.title}>TODOS</div>
 
         <div className={styleTodolist.row}>
-          <span className={styleTodolist.span_all}>
-            <CheckAllTodo isCheckAlls={isCheckAll} useDispatch={useTodoDispatch}/>
+          <div className={styleTodolist.span_all}>
+            <CheckBoxTodo
+              className={styleTodolist.checkbox_todo}
+              state={isCheckAll}
+              useDispatch={useTodoDispatch}
+              handleChangeCheckBox={checkAllFunction}
+            />
             All
-          </span>
+          </div>
 
           <InputEnter value={inputTodo} handleChange={setTodoInput} />
 
           <button
             className={styleTodolist.button}
             onClick={() => {
-              dispatchTodo(addCheckEdit());
-              dispatchTodo(addCheckBoxTodo());
-              dispatchTodo(addTodo(inputTodo));
-              dispatchTodo(setTodoInput(""));
+              dispatch(addCheckEdit());
+              dispatch(addCheckBoxTodo());
+              dispatch(addTodo(inputTodo));
+              dispatch(setTodoInput(""));
             }}
           >
             ADD
@@ -97,7 +103,7 @@ export default function Todolist() {
               <div
                 className={styleTodolist.todo_element_icon}
                 onClick={() => {
-                  dispatchTodo(removeTodo(index));
+                  dispatch(removeTodo(index));
                 }}
               >
                 <i className="fa-solid fa-xmark"></i>

@@ -1,6 +1,6 @@
 import styleTodolist from "../../../pages/Todolist/index.module.css";
 
-type props = {
+type InputTodoProps = {
   index: number;
   className?: string | undefined;
   value?: string | undefined;
@@ -20,8 +20,10 @@ export default function InputTodo({
   handleDoubleClick,
   handleOnBlur,
   elementEdit
-}: props) {
+}: InputTodoProps) {
   const dispatch = useDispatch();
+
+  
 
   function handleInputElement(index: number) {
     const todo_element_input = document.querySelector(
@@ -47,8 +49,8 @@ export default function InputTodo({
         }}
         onBlur={(e) => {
             if (isCheckTodo == false) {
-            handleInputElement(index);
-            dispatch(handleOnBlur(index));
+              handleInputElement(index);
+              dispatch(handleOnBlur(index));
             }
         }}
         onChange={(e) =>
