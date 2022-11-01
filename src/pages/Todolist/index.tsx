@@ -1,4 +1,4 @@
-import { useTodoDispatch, useTodoSelector } from "../../app/appTodo/hooks";
+import { useTodoDispatch, useTodoSelector } from "../../redux/hooks/hooks";
 import styleTodolist from "./index.module.css";
 import {
   checkAllFunction,
@@ -17,7 +17,7 @@ import {
   removeCheckBox,
   isCheckAlls,
   openEdit,
-} from "./todolistSlice";
+} from "../../redux/slice/todolistSlice";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { CheckBoxTodo } from "../../components/common/CheckBoxTodo";
 import InputEnter from "../../components/common/InputEnter";

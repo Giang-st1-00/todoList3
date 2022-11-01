@@ -1,5 +1,5 @@
-import { useTodoDispatch, useTodoSelector } from '../../../app/appTodo/hooks';
-import {setTodoInput } from '../../../pages/Todolist/todolistSlice';
+import { useTodoDispatch, useTodoSelector } from '../../../redux/hooks/hooks';
+import {setTodoInput } from '../../../redux/slice/todolistSlice';
 
 type InputTodoProps = {
     value ?: string | number,

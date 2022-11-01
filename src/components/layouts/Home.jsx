@@ -5,9 +5,7 @@ import { Layout, Col, Typography } from "antd";
 import Todolist from '../../pages/Todolist';
 const { Header, Content, Sider } = Layout;
 
-const DashBoard = () => {
-    // em tính sử dụng antd layout mà install không được .
-    // cung tinh dung config mà install react - dom mà không được
+const Home = () => {
     return (
       <Layout>
         <Router>
@@ -37,7 +35,7 @@ const DashBoard = () => {
     )
 }
 
-export default DashBoard;
+export default Home;
 
 
 

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../../app/appTodo/store";
+import { RootState } from "../store/store";
 import { TodosState } from "../../model/Todo";
 
 const initialState : TodosState = {
@@ -14,7 +14,6 @@ export const todolistSlice = createSlice({
     name : 'todolist',
     initialState ,
     reducers : {
-        //handle input
         setTodoInput : (state, action: PayloadAction<string | number>) => {
             return {
                 ...state,
@@ -22,7 +21,6 @@ export const todolistSlice = createSlice({
             }
         },
 
-        //handle check box todo
         addCheckBoxTodo : (state) => {
             
             return {
@@ -88,7 +86,6 @@ export const todolistSlice = createSlice({
             }
         },
 
-        //handle todo
         addTodo : (state, action: PayloadAction<string | number>) => {
             return  {
                 ...state,
@@ -103,7 +100,6 @@ export const todolistSlice = createSlice({
             }
         },
 
-        //handle edit
         addCheckEdit : (state) => {
             return {
                 ...state,
